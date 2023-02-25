@@ -7,7 +7,7 @@ import requestLogger from './middleware/request-logger.middleware';
 import Logger from './util/Logger';
 import notFoundMiddleware from './middleware/not-found.middleware';
 import errorHandlerMiddleware from './middleware/error-handler..middleware';
-import { DataBase } from './db/DataBase';
+import { DatabaseConnection } from './db/DatabaseConnection';
 
 import productsRouter from './routes/products.routes';
 
@@ -41,7 +41,7 @@ const start = async () => {
         // connect DB
         // await establishDatabaseConnection();
         const url = getDatabaseUrl();
-        const db = new DataBase(url);
+        const db = new DatabaseConnection(url);
         await db.establishDatabaseConnection();
         server.listen(port, () => {
             Logger.info("Server is listening on port: " + port + "...");

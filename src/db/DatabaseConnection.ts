@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Logger from "../util/Logger";
 
-export class DataBase {
+export class DatabaseConnection {
 
   private url: string;
 
