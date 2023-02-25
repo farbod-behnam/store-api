@@ -10,6 +10,7 @@ import errorHandlerMiddleware from './middleware/error-handler..middleware';
 import { DatabaseConnection } from './db/DatabaseConnection';
 
 import productsRouter from './routes/products.routes';
+import DatabaseUtil from './util/DatabaseUtil';
 
 // async errors
 
@@ -40,7 +41,7 @@ const start = async () => {
         const port = process.env.PORT || 5000;
         // connect DB
         // await establishDatabaseConnection();
-        const url = getDatabaseUrl();
+        const url = DatabaseUtil.getDatabaseUrl();
         const db = new DatabaseConnection(url);
         await db.establishDatabaseConnection();
         server.listen(port, () => {
