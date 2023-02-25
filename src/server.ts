@@ -4,7 +4,7 @@ import "express-async-errors";
 import express, { Request, Response } from 'express';
 import dotenv from "dotenv";
 import requestLogger from './middleware/request-logger.middleware';
-import Logger from './util/Logging';
+import Logger from './util/Logger';
 import notFoundMiddleware from './middleware/not-found.middleware';
 import errorHandlerMiddleware from './middleware/error-handler..middleware';
 import { DataBase } from './db/DataBase';
