@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Logger from "../library/Logging";
+import dotenv from "dotenv";
+import Logger from "../util/Logging";
 
 export class DataBase {
 
@@ -27,6 +28,16 @@ export class DataBase {
     }
   }
 
+  getDatabaseUrl() {
+
+    dotenv.config();
+    const url = process.env.LOCAL_MONGO_URI;
+    if (url === undefined) {
+      throw new Error("url for database connection is undefined!");
+    }
+    return url;
+
+  }
 
 }
 

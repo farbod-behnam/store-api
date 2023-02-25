@@ -4,7 +4,7 @@ import "express-async-errors";
 import express, { Request, Response } from 'express';
 import dotenv from "dotenv";
 import requestLogger from './middleware/request-logger.middleware';
-import Logger from './library/Logging';
+import Logger from './util/Logging';
 import notFoundMiddleware from './middleware/not-found.middleware';
 import errorHandlerMiddleware from './middleware/error-handler..middleware';
 import { DataBase } from './db/DataBase';
@@ -32,10 +32,11 @@ server.use("/api/v1/products", productsRouter);
 server.use(notFoundMiddleware);
 server.use(errorHandlerMiddleware);
 
-dotenv.config();
 
 const start = async () => {
     try {
+
+        dotenv.config();
         const port = process.env.PORT || 5000;
         // connect DB
         // await establishDatabaseConnection();

@@ -46,7 +46,6 @@ export class ProductRepository implements Repository<Product> {
 
     async getAll(): Promise<Product[] | Error> {
         throw new Error("Method not implemented.");
-        ProductModel.create();
     }
 
 }
