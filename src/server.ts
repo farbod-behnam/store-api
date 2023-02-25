@@ -1,12 +1,15 @@
 import 'reflect-metadata';
+import "express-async-errors";
 
 import express, { Request, Response } from 'express';
 import dotenv from "dotenv";
 import requestLogger from './middleware/request-logger.middleware';
-import Logging from './library/Logging';
+import Logger from './library/Logging';
 import notFoundMiddleware from './middleware/not-found.middleware';
 import errorHandlerMiddleware from './middleware/error-handler..middleware';
 import { DataBase } from './db/DataBase';
+
+import productsRouter from './routes/products.routes';
 
 // async errors
 
@@ -23,6 +26,9 @@ server.get("/", (req: Request, res: Response) => {
     res.send("<h1>Store API</h1><a href='/api/v1/products' >products route</a>")
 })
 
+server.use("/api/v1/products", productsRouter);
+
+
 server.use(notFoundMiddleware);
 server.use(errorHandlerMiddleware);
 
@@ -32,24 +38,20 @@ const start = async () => {
     try {
         const port = process.env.PORT || 5000;
         // connect DB
-        await establishDatabaseConnection();
+        // await establishDatabaseConnection();
+        const url = getDatabaseUrl();
+        const db = new DataBase(url);
+        await db.establishDatabaseConnection();
         server.listen(port, () => {
-            Logging.info("Server is listening on port: " + port + "...");
+            Logger.info("Server is listening on port: " + port + "...");
         });
     } catch (error) {
-        Logging.error(error);
+        Logger.error(error);
     }
 }
 
 start();
 
-
-async function establishDatabaseConnection() {
-    const url = getDatabaseUrl();
-    const db: DataBase = new DataBase(url);
-    await db.connect();
-    Logging.info("Database connection established");
-}
 
 function getDatabaseUrl() {
     const url = process.env.LOCAL_MONGO_URI;
