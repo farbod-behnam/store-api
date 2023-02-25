@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Logger from "../library/Logging";
 
 export class DataBase {
 
@@ -16,6 +17,16 @@ export class DataBase {
       useUnifiedTopology: true,
     });
   }
+
+  async establishDatabaseConnection() {
+    try {
+      await this.connect();
+      Logger.info("Database connection established");
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 }
 
